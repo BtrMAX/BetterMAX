@@ -12,8 +12,8 @@ android {
         applicationId = "ru.oneme.app"
         minSdk = 25
         targetSdk = 36
-        versionCode = 100001
-        versionName = "0.3"
+        versionCode = 100002
+        versionName = "0.4"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
