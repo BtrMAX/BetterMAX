@@ -248,7 +248,8 @@ fun PhoneInputField(
 
         Text(
             text = "+7",
-            modifier = Modifier.padding(end = 4.dp)
+            modifier = Modifier.padding(end = 4.dp),
+            color = Color.Black
         )
 
         TextField(
@@ -303,7 +304,8 @@ fun PhoneInputField(
                 unfocusedContainerColor = Color.Transparent,
                 disabledContainerColor = Color.Transparent,
                 focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent
+                unfocusedIndicatorColor = Color.Transparent,
+                focusedTextColor = Color.Black
             ),
             singleLine = true,
             modifier = Modifier.weight(1f)
