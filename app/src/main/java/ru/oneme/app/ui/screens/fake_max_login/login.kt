@@ -4,8 +4,10 @@ import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.automirrored.rounded.HelpOutline
@@ -17,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
@@ -39,6 +42,7 @@ import ru.oneme.app.R
 @Composable
 fun loginScreen() {
     var phoneNumber by remember { mutableStateOf("") }
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     Box(
         modifier = Modifier
@@ -56,16 +60,20 @@ fun loginScreen() {
         )
 
         Scaffold(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize()
+                .imePadding(), // Add padding to account for keyboard
             containerColor = Color.Transparent
         ) { innerPadding ->
             val navController = rememberNavController()
             NavHost(navController = navController, startDestination = "login") {
                 composable("login") {
+                    val scrollState = rememberScrollState()
                     Column(
                         Modifier
                             .fillMaxSize()
                             .padding(innerPadding)
+                            .verticalScroll(scrollState)
                     ) {
                         Box(
                             modifier = Modifier
@@ -128,6 +136,7 @@ fun loginScreen() {
                         Button(
                             onClick = {
                                 Toast.makeText(context, "Сервер перегружен", Toast.LENGTH_SHORT).show()
+                                keyboardController?.hide()
                             },
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -170,6 +179,8 @@ fun loginScreen() {
                             textAlign = TextAlign.Center,
                             lineHeight = 12.sp
                         )
+
+                        Spacer(modifier = Modifier.height(16.dp))
                     }
                 }
                 composable("help") {
